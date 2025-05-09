@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4" style="font-size: 2rem;">Dashboard</h2>
+
+    <!-- Dataset Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title" style="font-size: 1.25rem;">Total Records</h5>
+                    <p class="display-4" style="font-size: 2.5rem;">{{ total_records }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title" style="font-size: 1.25rem;">Features</h5>
+                    <p class="display-4" style="font-size: 2.5rem;">{{ total_features }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title" style="font-size: 1.25rem;">Target Distribution</h5>
+                    <p class="display-4" style="font-size: 2.5rem;">{{ target_distribution }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Performance -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 1.25rem;">Model Accuracy</h5>
+                    <p class="display-4" style="font-size: 2.5rem;">{{ model_accuracy }}%</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 1.25rem;">Confusion Matrix</h5>
+                    <pre style="font-size: 1rem;">{{ confusion_matrix }}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 1.25rem;">Target Distribution</h5>
+                    <canvas id="targetChart"></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-size: 1.25rem;">Model Performance Over Time</h5>
+                    <canvas id="performanceChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Target Distribution Chart
+    const targetCtx = document.getElementById('targetChart').getContext('2d');
+    const targetChart = new Chart(targetCtx, {
+        type: 'pie',
+        data: {
+            labels: JSON.parse('{{ target_labels|escapejs }}'),
+            datasets: [{
+                data: JSON.parse('{{ target_data|escapejs }}'),
+                backgroundColor: ['#007bff', '#ffc107', '#28a745', '#dc3545']
+            }]
+        }
+    });
+
+    // Model Performance Chart
+    const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+    const performanceChart = new Chart(performanceCtx, {
+        type: 'line',
+        data: {
+            labels: JSON.parse('{{ performance_labels|escapejs }}'),
+            datasets: [{
+                label: 'Accuracy',
+                data: JSON.parse('{{ performance_data|escapejs }}'),
+                borderColor: '#007bff',
+                fill: false
+            }]
+        }
+    });
+</script>
+{% endblock %}
