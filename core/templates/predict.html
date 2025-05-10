@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}COVID-19 Prediction{% endblock %}
+{% block content %}
+<div class="card p-4 shadow-lg" style="width: 100%; max-width: 700px; margin: auto;">
+    <h2 class="text-center mb-4">COVID-19 Prediction</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    {{ form.none_symptom.label_tag }} {{ form.none_symptom }}
+                </div>
+                <div class="mb-3">
+                    {{ form.tiredness.label_tag }} {{ form.tiredness }}
+                </div>
+                <div class="mb-3">
+                    {{ form.dry_cough.label_tag }} {{ form.dry_cough }}
+                </div>
+                <div class="mb-3">
+                    {{ form.difficulty_in_breathing.label_tag }} {{ form.difficulty_in_breathing }}
+                </div>
+                <div class="mb-3">
+                    {{ form.sore_throat.label_tag }} {{ form.sore_throat }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    {{ form.fever.label_tag }} {{ form.fever }}
+                </div>
+                <div class="mb-3">
+                    {{ form.pains.label_tag }} {{ form.pains }}
+                </div>
+                <div class="mb-3">
+                    {{ form.nasal_congestion.label_tag }} {{ form.nasal_congestion }}
+                </div>
+                <div class="mb-3">
+                    {{ form.runny_nose.label_tag }} {{ form.runny_nose }}
+                </div>
+                <div class="mb-3">
+                    {{ form.diarrhea.label_tag }} {{ form.diarrhea }}
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit" class="btn btn-primary">Predict</button>
+        </div>
+    </form>
+
+    {% if prediction %}
+        <div class="alert alert-info mt-4" role="alert">
+            <h4 class="alert-heading">Prediction Result</h4>
+            <p>{{ prediction }}</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
