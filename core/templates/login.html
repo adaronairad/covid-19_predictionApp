@@ -16,10 +16,16 @@
                 <i class="bi bi-eye" id="togglePassword"></i>
             </span>
         </div>
+        
         <div class="d-grid">
             <button type="submit" class="btn btn-primary">Login</button>
         </div>
     </form>
+
+    <!-- Sign Up Link -->
+    <div class="mt-3 text-center">
+        <p>Don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+    </div>
 </div>
 
 <!-- JavaScript for toggling password visibility -->
