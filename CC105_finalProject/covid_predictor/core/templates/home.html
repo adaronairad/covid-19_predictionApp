@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block title %}Home - COVID-19 Predictor{% endblock %}
+{% block content %}
+<div class="text-center mt-5">
+    <h2 class="mb-4">Welcome to the <span class="text-primary">COVID-19 Symptoms Checker</span></h2>
+    <p class="lead">This web application allows you to predict the likelihood of COVID-19 infection based on symptoms.</p>
+    <a href="{% url 'register' %}" class="btn btn-primary btn-lg mt-3">Get Started</a>
+</div>
+{% endblock %}

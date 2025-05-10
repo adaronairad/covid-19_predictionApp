@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-5">
+            <div class="card p-4 shadow-lg border-0">
+                <h2 class="text-center mb-4" style="font-size:2rem;">Register</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3 position-relative">
+                        <label for="id_username" class="form-label">Username</label>
+                        <input type="text" name="username" id="id_username" class="form-control" required autocomplete="username">
+                    </div>
+                    <div class="mb-3 position-relative">
+                        <label for="id_password1" class="form-label">Password</label>
+                        <input type="password" name="password1" id="id_password1" class="form-control" style="padding-right: 2.5rem;" required autocomplete="new-password">
+                        <span class="position-absolute" style="top: 50%; right: 1rem; transform: translateY(-50%); cursor: pointer;" onclick="togglePasswordVisibility('id_password1', this)">
+                            <i class="bi bi-eye" id="togglePassword1"></i>
+                        </span>
+                    </div>
+                    <div class="mb-3 position-relative">
+                        <label for="id_password2" class="form-label">Confirm Password</label>
+                        <input type="password" name="password2" id="id_password2" class="form-control" style="padding-right: 2.5rem;" required autocomplete="new-password">
+                        <span class="position-absolute" style="top: 50%; right: 1rem; transform: translateY(-50%); cursor: pointer;" onclick="togglePasswordVisibility('id_password2', this)">
+                            <i class="bi bi-eye" id="togglePassword2"></i>
+                        </span>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary py-2" style="font-size:1.1rem;">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript for toggling password visibility -->
+<script>
+    function togglePasswordVisibility(inputId, iconElement) {
+        const inputField = document.getElementById(inputId);
+        const icon = iconElement.querySelector('i');
+        if (inputField.type === 'password') {
+            inputField.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            inputField.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    }
+</script>
+{% endblock %}
